@@ -1,1 +1,681 @@
-testing
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>地区店家 · 新山 · 吉隆坡</title>
+    <style>
+        /* ===== 全局重置 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e4e6ea;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            font-family: 'Segoe UI', Roboto, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1.2rem;
+            padding-top: 3rem;
+        }
+
+        /* ===== 主容器 ===== */
+        .container {
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* ===== 正方形 LOGO ===== */
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 5rem;
+        }
+
+        .logo-main {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            object-fit: cover;
+            display: block;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 
+                        0 1px 3px rgba(0, 0, 0, 0.04);
+            transition: transform 0.25s ease;
+            background: #eef0f2;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .logo-main:active {
+            transform: scale(0.96);
+        }
+
+        .logo-fallback {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #4a5568;
+            background: #e4e6ea;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== 地区选择器 ===== */
+        .region-picker {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin: 0.8rem 0 1.8rem 0;
+            flex-wrap: wrap;
+            background: #e4e6ea;
+        }
+
+        .region-btn {
+            width: 100px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            background: #e4e6ea;
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            padding: 0.6rem 0.4rem;
+            gap: 4px;
+            outline: none;
+        }
+
+        .region-btn:active {
+            transform: scale(0.92);
+        }
+
+        .region-btn .flag-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            transition: all 0.25s ease;
+            background: #e4e6ea;
+        }
+
+        .region-btn .label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #4a5568;
+            margin-top: 2px;
+            transition: color 0.2s;
+        }
+
+        .region-btn.active .flag-icon {
+            border-color: #3b5998;
+            box-shadow: 0 0 0 3px rgba(59, 89, 152, 0.12);
+        }
+
+        .region-btn.active .label {
+            color: #2d4373;
+        }
+
+        /* ===== 店家列表 ===== */
+        .shop-section {
+            margin-top: 0.8rem;
+            padding-top: 1.2rem;
+            border-top: 2px solid rgba(0, 0, 0, 0.04);
+            min-height: 130px;
+        }
+
+        .shop-section .placeholder {
+            color: #9aa0aa;
+            font-size: 0.9rem;
+            padding: 1.4rem 0.5rem;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(4px);
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .shop-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            padding: 0.2rem 0;
+        }
+
+        /* ===== 店家卡片 - 三栏布局 ===== */
+        .shop-item {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(8px);
+            padding: 0.7rem 1rem;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: background 0.15s, transform 0.15s;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            cursor: default;
+            min-height: 60px;
+        }
+
+        .shop-item:active {
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0.98);
+        }
+
+        /* 第一栏：店家 Logo (PNG) */
+        .shop-item .shop-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: #eef0f2;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        /* 第二栏：店家名称 */
+        .shop-item .shop-name {
+            font-weight: 500;
+            color: #2d3748;
+            font-size: 0.95rem;
+            flex: 1;
+            text-align: left;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* 第三栏：联系按钮组 */
+        .shop-item .shop-actions {
+            display: flex;
+            gap: 0.4rem;
+            flex-shrink: 0;
+        }
+
+        .shop-item .shop-actions a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .shop-item .shop-actions a:active {
+            transform: scale(0.88);
+        }
+
+        /* Telegram 按钮 */
+        .shop-item .btn-telegram {
+            background: rgba(0, 136, 204, 0.15);
+            color: #0088cc;
+            border: 1px solid rgba(0, 136, 204, 0.15);
+        }
+
+        .shop-item .btn-telegram:hover {
+            background: rgba(0, 136, 204, 0.25);
+        }
+
+        /* WhatsApp 按钮 */
+        .shop-item .btn-whatsapp {
+            background: rgba(37, 211, 102, 0.15);
+            color: #25d366;
+            border: 1px solid rgba(37, 211, 102, 0.15);
+        }
+
+        .shop-item .btn-whatsapp:hover {
+            background: rgba(37, 211, 102, 0.25);
+        }
+
+        .empty-shops {
+            color: #9aa0aa;
+            padding: 1.6rem 0.5rem;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(4px);
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* ===== 响应式 ===== */
+        @media (min-width: 600px) {
+            body {
+                padding: 3.5rem 2rem;
+                padding-top: 4.5rem;
+            }
+            .container {
+                max-width: 520px;
+            }
+            .logo-main {
+                width: 84px;
+                height: 84px;
+                border-radius: 20px;
+            }
+            .logo-fallback {
+                width: 84px;
+                height: 84px;
+                font-size: 2.2rem;
+                border-radius: 20px;
+            }
+            .region-btn {
+                width: 120px;
+                height: 130px;
+            }
+            .region-btn .flag-icon {
+                width: 60px;
+                height: 60px;
+            }
+            .region-btn .label {
+                font-size: 0.9rem;
+            }
+            .shop-item .shop-logo {
+                width: 50px;
+                height: 50px;
+            }
+            .shop-item .shop-name {
+                font-size: 1rem;
+            }
+            .shop-item .shop-actions a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            body {
+                padding: 1.5rem 0.8rem;
+                padding-top: 2.5rem;
+            }
+            .logo-main {
+                width: 60px;
+                height: 60px;
+                border-radius: 14px;
+            }
+            .logo-fallback {
+                width: 60px;
+                height: 60px;
+                font-size: 1.6rem;
+                border-radius: 14px;
+            }
+            .region-btn {
+                width: 78px;
+                height: 86px;
+            }
+            .region-btn .flag-icon {
+                width: 40px;
+                height: 40px;
+            }
+            .region-btn .label {
+                font-size: 0.7rem;
+            }
+            .region-picker {
+                gap: 1.6rem;
+            }
+            .shop-item {
+                padding: 0.6rem 0.8rem;
+                border-radius: 40px;
+                gap: 0.6rem;
+                min-height: 50px;
+            }
+            .shop-item .shop-logo {
+                width: 36px;
+                height: 36px;
+            }
+            .shop-item .shop-name {
+                font-size: 0.8rem;
+            }
+            .shop-item .shop-actions a {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+            .shop-item .shop-actions {
+                gap: 0.3rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .shop-item .shop-name {
+                font-size: 0.7rem;
+            }
+            .shop-item .shop-actions a {
+                width: 26px;
+                height: 26px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" role="main">
+
+        <!-- ===== 正方形 LOGO ===== -->
+        <div class="logo-wrapper">
+            <img src="NTR logo.jpg" class="logo-main" alt="品牌Logo" id="logoImage">
+        </div>
+
+        <!-- ===== 地区选择器 ===== -->
+        <div class="region-picker" id="regionPicker">
+            <button class="region-btn" data-region="johor" id="regionJohor" aria-label="新山地区">
+                <img src="jbflag.png" alt="新山州旗" class="flag-icon">
+                <span class="label">新山</span>
+            </button>
+            <button class="region-btn" data-region="kl" id="regionKl" aria-label="吉隆坡地区">
+                <img src="selangorflag.png" alt="吉隆坡州旗" class="flag-icon">
+                <span class="label">吉隆坡</span>
+            </button>
+        </div>
+
+        <!-- ===== 店家展示区 ===== -->
+        <div class="shop-section" id="shopSection">
+            <div class="placeholder" id="placeholderMsg">👆 点击上方选择地区</div>
+            <div id="shopListContainer" class="shop-list"></div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            "use strict";
+
+            // =============================================
+            //  店家数据 - 包含 Logo PNG、Telegram、WhatsApp
+            // =============================================
+            const shopData = {
+                johor: [
+                    { 
+                        name: 'Mina家', 
+                        logo: 'mina.jpg',
+                        telegram: '',
+                        whatsapp: 'https://wa.me/60189096799'
+                    },
+                    { 
+                        name: 'VIP Spa', 
+                        logo: 'vip spa.jpg',
+                        telegram: 'https://web.telegram.org/a/#-1002347000796',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: 'Glory Spa', 
+                        logo: 'glory spa.jpg',
+                        telegram: 'https://web.telegram.org/a/#-1002201908727',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: 'Breeze Reflexology', 
+                        logo: 'breeze.jpg',
+                        telegram: 'https://web.telegram.org/a/#-1002608756937',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: '有钱任性', 
+                        logo: 'youqianrenxing.jpg',
+                        telegram: 'https://web.telegram.org/a/#-1001215990744',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: 'OASIS THAI REFLEXLOGY', 
+                        logo: 'oasis thai.jpg',
+                        telegram: 'https://web.telegram.org/a/#-1001652635766',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: '金美人', 
+                        logo: 'jinmeiren.jpg',
+                        telegram: 'https://web.telegram.org/a/#-1001239375544',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: 'MeetYo', 
+                        logo: 'meetyo.jpg',
+                        telegram: 'https://web.telegram.org/a/#-1002659688567',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: 'Yaome Salon', 
+                        logo: 'yaome.jpg',
+                        telegram: 'https://web.telegram.org/a/#-1002642921180',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: 'Yes I Do', 
+                        logo: 'yesido.jpg',
+                        telegram: 'https://web.telegram.org/a/#-1003218287550',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: 'See You Salon', 
+                        logo: 'seeyousalon.jpg',
+                        telegram: 'https://web.telegram.org/a/#-1002685671550',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: 'Crazy Horse', 
+                        logo: 'crazyhorse.jpg',
+                        telegram: 'https://web.telegram.org/a/#-1003903627901',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: 'Paragon Spa', 
+                        logo: 'paragonspa.jpg',
+                        telegram: 'https://web.telegram.org/a/#-1003786441145',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: 'NZ Spa', 
+                        logo: 'nzspa.jpg',
+                        telegram: 'https://web.telegram.org/a/#-1001833610087',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: 'Roti Boy', 
+                        logo: 'roti.jpg',
+                        telegram: 'https://t.me/RotiboyExpressJb',
+                        whatsapp: ''
+                    },
+					
+                ],
+                kl: [
+                    { 
+                        name: 'The Cave', 
+                        logo: 'thecave.jpg',
+                        telegram: 'https://t.me/serdangthecave',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: '红日', 
+                        logo: 'risingsun.jpg',
+                        telegram: 'https://t.me/risingsunkuchai',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: 'W Channel', 
+                        logo: 'wchannel.jpg',
+                        telegram: 'https://t.me/wchannel_k',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: '甲洞九尾狐休闲中心', 
+                        logo: 'jiuweihu.jpg',
+                        telegram: 'https://t.me/jiuweihu168',
+                        whatsapp: ''
+                    },
+                    { 
+                        name: '樱花休闲中心', 
+                        logo: 'sakura.jpg',
+                        telegram: 'https://t.me/sakura6348',
+                        whatsapp: ''
+                    }
+                ]
+            };
+
+            // =============================================
+            //  DOM 引用
+            // =============================================
+            const regionBtns = document.querySelectorAll('.region-btn');
+            const placeholderMsg = document.getElementById('placeholderMsg');
+            const shopListContainer = document.getElementById('shopListContainer');
+            let activeRegion = null;
+
+            // =============================================
+            //  渲染店家列表
+            // =============================================
+            function renderShops(regionKey) {
+                shopListContainer.innerHTML = '';
+                placeholderMsg.style.display = 'none';
+
+                const shops = shopData[regionKey];
+
+                if (!shops || shops.length === 0) {
+                    const empty = document.createElement('div');
+                    empty.className = 'empty-shops';
+                    empty.textContent = '🏷️ 该地区暂无店家';
+                    shopListContainer.appendChild(empty);
+                    return;
+                }
+
+                shops.forEach(shop => {
+                    const item = document.createElement('div');
+                    item.className = 'shop-item';
+
+                    // 第一栏：店家 Logo (PNG)
+                    const logo = document.createElement('img');
+                    logo.className = 'shop-logo';
+                    logo.src = shop.logo || 'default-logo.png';
+                    logo.alt = shop.name + ' logo';
+                    // Logo 加载失败时显示备用图标
+                    logo.onerror = function() {
+                        this.style.display = 'none';
+                        const fallback = document.createElement('span');
+                        fallback.className = 'shop-icon';
+                        fallback.textContent = '🏪';
+                        this.parentElement.insertBefore(fallback, this);
+                    };
+
+                    // 第二栏：店家名称
+                    const name = document.createElement('span');
+                    name.className = 'shop-name';
+                    name.textContent = shop.name;
+
+                    // 第三栏：联系按钮
+                    const actions = document.createElement('div');
+                    actions.className = 'shop-actions';
+
+                    // Telegram 按钮
+                    if (shop.telegram) {
+                        const tgBtn = document.createElement('a');
+                        tgBtn.className = 'btn-telegram';
+                        tgBtn.href = shop.telegram;
+                        tgBtn.target = '_blank';
+                        tgBtn.rel = 'noopener noreferrer';
+                        tgBtn.innerHTML = '✈️';
+                        tgBtn.setAttribute('aria-label', '联系 Telegram');
+                        actions.appendChild(tgBtn);
+                    }
+
+                    // WhatsApp 按钮
+                    if (shop.whatsapp) {
+                        const waBtn = document.createElement('a');
+                        waBtn.className = 'btn-whatsapp';
+                        waBtn.href = shop.whatsapp;
+                        waBtn.target = '_blank';
+                        waBtn.rel = 'noopener noreferrer';
+                        waBtn.innerHTML = '💬';
+                        waBtn.setAttribute('aria-label', '联系 WhatsApp');
+                        actions.appendChild(waBtn);
+                    }
+
+                    item.appendChild(logo);
+                    item.appendChild(name);
+                    item.appendChild(actions);
+                    shopListContainer.appendChild(item);
+                });
+            }
+
+            // =============================================
+            //  清除所有激活状态
+            // =============================================
+            function clearActive() {
+                regionBtns.forEach(btn => btn.classList.remove('active'));
+            }
+
+            // =============================================
+            //  设置激活地区
+            // =============================================
+            function setActiveRegion(regionKey, buttonEl) {
+                if (activeRegion === regionKey) {
+                    clearActive();
+                    activeRegion = null;
+                    shopListContainer.innerHTML = '';
+                    placeholderMsg.style.display = 'block';
+                    return;
+                }
+
+                clearActive();
+                buttonEl.classList.add('active');
+                activeRegion = regionKey;
+                renderShops(regionKey);
+            }
+
+            // =============================================
+            //  事件绑定
+            // =============================================
+            regionBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const region = this.dataset.region;
+                    if (region) setActiveRegion(region, this);
+                });
+            });
+
+            // =============================================
+            //  默认激活：吉隆坡
+            // =============================================
+            const defaultBtn = document.getElementById('regionJohor');
+            if (defaultBtn) {
+                setActiveRegion('johor', defaultBtn);
+            } else {
+                placeholderMsg.style.display = 'block';
+            }
+
+            // =============================================
+            //  LOGO 图片加载失败 → 显示备用文字
+            // =============================================
+            const logoImg = document.getElementById('logoImage');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.style.display = 'none';
+                    const parent = this.parentElement;
+                    const fallback = document.createElement('div');
+                    fallback.className = 'logo-fallback';
+                    fallback.textContent = '◈';
+                    parent.appendChild(fallback);
+                };
+            }
+
+        })();
+    </script>
+</body>
+</html>

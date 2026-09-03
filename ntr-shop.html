@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>牛头人 XP 小天地 | 店家</title>
-	<link rel="icon" type="image/png" href="img/webcon/NTR logo.jpg">
+    <link rel="icon" type="image/png" href="img/webcon/NTR logo.jpg">
     <link rel="shortcut icon" href="img/webcon/NTR logo.jpg">
     <link rel="apple-touch-icon" href="img/webcon/NTR logo.jpg">
     <style>
@@ -33,11 +33,18 @@
             text-align: center;
         }
 
-        /* ===== 正方形 LOGO ===== */
+        /* ===== 正方形 LOGO - 可点击返回首页 ===== */
         .logo-wrapper {
             display: flex;
             justify-content: center;
             margin-bottom: 5rem;
+            cursor: pointer;
+        }
+
+        .logo-wrapper a {
+            display: block;
+            text-decoration: none;
+            outline: none;
         }
 
         .logo-main {
@@ -48,13 +55,18 @@
             display: block;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 
                         0 1px 3px rgba(0, 0, 0, 0.04);
-            transition: transform 0.25s ease;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
             background: #eef0f2;
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
+        .logo-main:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+        }
+
         .logo-main:active {
-            transform: scale(0.96);
+            transform: scale(0.92);
         }
 
         .logo-fallback {
@@ -496,9 +508,11 @@
 <body>
     <div class="container" role="main">
 
-        <!-- ===== 正方形 LOGO ===== -->
+        <!-- ===== 正方形 LOGO - 点击返回 index.html ===== -->
         <div class="logo-wrapper">
-            <img src="img/webcon/NTR logo.jpg" class="logo-main" alt="品牌Logo" id="logoImage">
+            <a href="index.html" title="返回首页">
+                <img src="img/webcon/NTR logo.jpg" class="logo-main" alt="品牌Logo - 点击返回首页" id="logoImage">
+            </a>
         </div>
 
         <!-- ===== 地区选择器 ===== -->
@@ -568,7 +582,7 @@
                         whatsapp: 'https://wa.me/60137978055',
                         map: 'https://www.google.com/maps/place/18,+Jalan+Harimau,+Taman+Century,+80250+Johor+Bahru,+Johor+Darul+Ta\'zim/@1.4812323,103.759335,17z/data=!3m1!4b1!4m6!3m5!1s0x31da6d323c8e3acb:0x841022e25bf3aeff!8m2!3d1.4812269!4d103.7619099!16s%2Fg%2F12hyd4t5w?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
                     },
-					{ 
+                    { 
                         name: 'VIP Spa', 
                         logo: 'img/jbspa/vip spa.jpg',
                         telegram: 'https://t.me/vipspajb',
@@ -599,7 +613,7 @@
                         whatsapp: 'https://wa.link/af9ed3',
                         map: 'https://www.google.com/maps/place/91,+Jln+Kenanga+3,+Taman+Desa+Cemerlang,+81800+Ulu+Tiram,+Johor+Darul+Ta\'zim/@1.5538315,103.814335,17z/data=!3m1!4b1!4m6!3m5!1s0x31da6eaa3985313b:0xd30f33f5fe20f4c7!8m2!3d1.5538261!4d103.8169099!16s%2Fg%2F11hwtzjz6l?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
                     },
-					{ 
+                    { 
                         name: 'Harmony Massage Center', 
                         logo: 'img/jbshop/harmony.jpg',
                         telegram: '',
@@ -655,7 +669,7 @@
                         whatsapp: 'https://wa.me/60177201181',
                         map: 'https://www.google.com/maps/place/63,+Jalan+Harimau+Tarum,+Taman+Century,+80250+Johor+Bahru,+Johor+Darul+Ta\'zim/@1.4828863,103.762164,17z/data=!3m1!4b1!4m6!3m5!1s0x31da6d2e169bb20d:0x1362fd2d96f63200!8m2!3d1.4828809!4d103.7647389!16s%2Fg%2F11c2d3qbw2?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
                     },
-					{ 
+                    { 
                         name: '有钱任性', 
                         logo: 'img/jbshop/youqianrenxing.jpg',
                         telegram: 'https://t.me/RnBJB',
@@ -801,7 +815,7 @@
                         whatsapp: '',
                         map: 'https://www.google.com/maps/search/?api=1&query=樱花+Kuala+Lumpur'
                     },
-					{ 
+                    { 
                         name: 'Red Escort', 
                         logo: 'img/kl/redescort.jpg',
                         telegram: 'https://t.me/redescort66',

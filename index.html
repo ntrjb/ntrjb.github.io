@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-    <title>牛头人 XP 小天地 | 店家</title>
-	<link rel="icon" type="image/png" href="img/webcon/NTR logo.jpg">
+    <title>牛头人 XP · 首页</title>
+    <link rel="icon" type="image/png" href="img/webcon/NTR logo.jpg">
     <link rel="shortcut icon" href="img/webcon/NTR logo.jpg">
     <link rel="apple-touch-icon" href="img/webcon/NTR logo.jpg">
     <style>
-        /* ===== 全局重置 ===== */
+        /* ===== 全局重置 (承袭店家风格) ===== */
         * {
             margin: 0;
             padding: 0;
@@ -26,18 +26,17 @@
             padding-top: 3rem;
         }
 
-        /* ===== 主容器 ===== */
         .container {
             max-width: 480px;
             width: 100%;
             text-align: center;
         }
 
-        /* ===== 正方形 LOGO ===== */
+        /* ===== LOGO (正方形) ===== */
         .logo-wrapper {
             display: flex;
             justify-content: center;
-            margin-bottom: 5rem;
+            margin-bottom: 4.5rem;
         }
 
         .logo-main {
@@ -46,17 +45,14 @@
             border-radius: 18px;
             object-fit: cover;
             display: block;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 
-                        0 1px 3px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
             transition: transform 0.25s ease;
             background: #eef0f2;
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
-
         .logo-main:active {
             transform: scale(0.96);
         }
-
         .logo-fallback {
             width: 72px;
             height: 72px;
@@ -70,279 +66,126 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
             font-weight: 500;
-            letter-spacing: 0.5px;
         }
 
-        /* ===== 地区选择器 ===== */
-        .region-picker {
-            display: flex;
-            justify-content: center;
+        /* ===== 导航网格 (四栏目) ===== */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 1.2rem;
-            margin: 0.8rem 0 1.8rem 0;
-            flex-wrap: wrap;
-            background: #e4e6ea;
+            margin: 1.2rem 0 1.8rem 0;
         }
 
-        .region-btn {
-            width: 90px;
-            height: 100px;
-            border-radius: 50%;
-            border: 3px solid transparent;
-            background: #e4e6ea;
-            backdrop-filter: blur(8px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            padding: 0.5rem 0.3rem;
-            gap: 3px;
-            outline: none;
-            flex-shrink: 0;
-        }
-
-        .region-btn:active {
-            transform: scale(0.92);
-        }
-
-        .region-btn .flag-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            object-fit: cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            border: 2px solid rgba(255, 255, 255, 0.7);
-            transition: all 0.25s ease;
-            background: #e4e6ea;
-        }
-
-        .region-btn .label {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            color: #4a5568;
-            margin-top: 2px;
-            transition: color 0.2s;
-            line-height: 1.2;
-            text-align: center;
-        }
-
-        .region-btn.active .flag-icon {
-            border-color: #3b5998;
-            box-shadow: 0 0 0 3px rgba(59, 89, 152, 0.12);
-        }
-
-        .region-btn.active .label {
-            color: #2d4373;
-        }
-
-        /* 感谢按钮 - 特殊样式 */
-        .region-btn.thanks-btn .flag-icon {
-            background: rgba(255, 215, 0, 0.12);
-            border-color: rgba(255, 215, 0, 0.3);
-        }
-
-        .region-btn.thanks-btn.active .flag-icon {
-            border-color: #f5a623;
-            box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.2);
-        }
-
-        .region-btn.thanks-btn.active .label {
-            color: #b8860b;
-        }
-
-        /* ===== 店家列表 ===== */
-        .shop-section {
-            margin-top: 0.8rem;
-            padding-top: 1.2rem;
-            border-top: 2px solid rgba(0, 0, 0, 0.04);
-            min-height: 130px;
-        }
-
-        .shop-section .placeholder {
-            color: #9aa0aa;
-            font-size: 0.9rem;
-            padding: 1.4rem 0.5rem;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(4px);
-            border-radius: 40px;
-            letter-spacing: 0.3px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .shop-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            padding: 0.2rem 0;
-        }
-
-        /* ===== 店家卡片 - 三栏布局 ===== */
-        .shop-item {
+        .nav-card {
             background: rgba(255, 255, 255, 0.35);
             backdrop-filter: blur(8px);
-            padding: 0.7rem 1rem;
-            border-radius: 60px;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            transition: background 0.15s, transform 0.15s;
             border: 1px solid rgba(255, 255, 255, 0.25);
-            cursor: default;
-            min-height: 60px;
-        }
-
-        .shop-item:active {
-            background: rgba(255, 255, 255, 0.6);
-            transform: scale(0.98);
-        }
-
-        .shop-item .shop-logo {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            object-fit: cover;
-            flex-shrink: 0;
-            background: #eef0f2;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        }
-
-        .shop-item .shop-name {
-            font-weight: 500;
+            border-radius: 40px;
+            padding: 1.6rem 0.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 130px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
             color: #2d3748;
-            font-size: 0.9rem;
-            flex: 1;
-            text-align: left;
-            min-width: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+        .nav-card:active {
+            transform: scale(0.96);
+            background: rgba(255, 255, 255, 0.6);
+        }
+        /* ----- 禁用状态 (统一) ----- */
+        .nav-card.disabled {
+            opacity: 0.5;
+            filter: grayscale(0.3);
+            cursor: not-allowed;
+        }
+        /* 注意：移除 pointer-events: none，让点击事件可以触发 */
+        .nav-card.disabled .nav-icon {
+            opacity: 0.5;
+        }
+        .nav-card .nav-icon {
+            font-size: 2.6rem;
+            margin-bottom: 0.4rem;
+            line-height: 1.2;
+        }
+        .nav-card .nav-label {
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+            color: #2d3748;
+        }
+        .nav-card .nav-badge {
+            font-size: 0.65rem;
+            background: rgba(0, 0, 0, 0.04);
+            padding: 0.15rem 0.7rem;
+            border-radius: 40px;
+            color: #6b7a8f;
+            margin-top: 0.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* ===== 底部占位 ===== */
+        .footer-meta {
+            margin-top: 2.8rem;
+            color: #9aa0aa;
+            font-size: 0.7rem;
+            letter-spacing: 0.3px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+            padding: 0.5rem 1rem;
+            border-radius: 60px;
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== 自定义提示弹窗 (轻量) ===== */
+        .toast-tip {
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: rgba(30, 30, 40, 0.85);
+            backdrop-filter: blur(12px);
+            color: #f0f2f5;
+            padding: 1.2rem 2rem;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            z-index: 999;
+            max-width: 80%;
+            text-align: center;
+            line-height: 1.5;
             white-space: nowrap;
         }
-
-        .shop-item .shop-actions {
-            display: flex;
-            gap: 0.3rem;
-            flex-shrink: 0;
+        .toast-tip.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .toast-tip .toast-emoji {
+            margin-right: 0.5rem;
         }
 
-        .shop-item .shop-actions a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: all 0.2s ease;
-            border: none;
-            cursor: pointer;
+        @media (max-width: 480px) {
+            .toast-tip {
+                font-size: 0.85rem;
+                padding: 0.9rem 1.2rem;
+                white-space: normal;
+                max-width: 85%;
+                border-radius: 40px;
+            }
         }
 
-        .shop-item .shop-actions a:active {
-            transform: scale(0.88);
-        }
-
-        .shop-item .btn-telegram {
-            background: rgba(0, 136, 204, 0.15);
-            color: #0088cc;
-            border: 1px solid rgba(0, 136, 204, 0.15);
-        }
-
-        .shop-item .btn-telegram:hover {
-            background: rgba(0, 136, 204, 0.25);
-        }
-
-        .shop-item .btn-whatsapp {
-            background: rgba(37, 211, 102, 0.15);
-            color: #25d366;
-            border: 1px solid rgba(37, 211, 102, 0.15);
-        }
-
-        .shop-item .btn-whatsapp:hover {
-            background: rgba(37, 211, 102, 0.25);
-        }
-
-        /* Google Maps 地址按钮 */
-        .shop-item .btn-map {
-            background: rgba(234, 67, 53, 0.12);
-            color: #ea4335;
-            border: 1px solid rgba(234, 67, 53, 0.15);
-            font-size: 0.9rem;
-        }
-
-        .shop-item .btn-map:hover {
-            background: rgba(234, 67, 53, 0.22);
-        }
-
-        .shop-item .shop-actions a.btn-map {
-            font-size: 0.9rem;
-        }
-
-        .empty-shops {
-            color: #9aa0aa;
-            padding: 1.6rem 0.5rem;
-            font-size: 0.9rem;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(4px);
-            border-radius: 60px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        /* ===== 感谢页面 ===== */
-        .thanks-content {
-            padding: 2rem 1rem;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(8px);
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .thanks-content .thanks-icon {
-            font-size: 4rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .thanks-content .thanks-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 0.5rem;
-        }
-
-        .thanks-content .thanks-desc {
-            font-size: 0.95rem;
-            color: #4a5568;
-            line-height: 1.6;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-
-        .thanks-content .thanks-list {
-            margin-top: 1.2rem;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.6rem;
-        }
-
-        .thanks-content .thanks-list .thanks-tag {
-            background: rgba(255, 215, 0, 0.15);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            padding: 0.3rem 0.9rem;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            color: #8b7500;
-            font-weight: 500;
-        }
-
-        /* ===== 响应式 ===== */
+        /* ===== 响应式 (完全承袭店家页) ===== */
         @media (min-width: 600px) {
             body {
                 padding: 3.5rem 2rem;
@@ -362,35 +205,19 @@
                 font-size: 2.2rem;
                 border-radius: 20px;
             }
-            .region-btn {
-                width: 100px;
-                height: 110px;
+            .nav-card {
+                min-height: 150px;
+                padding: 1.8rem 0.5rem;
+                border-radius: 48px;
             }
-            .region-btn .flag-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 1.6rem;
+            .nav-card .nav-icon {
+                font-size: 3rem;
             }
-            .region-btn .label {
-                font-size: 0.8rem;
-            }
-            .region-picker {
-                gap: 1.5rem;
-            }
-            .shop-item .shop-logo {
-                width: 50px;
-                height: 50px;
-            }
-            .shop-item .shop-name {
-                font-size: 1rem;
-            }
-            .shop-item .shop-actions a {
-                width: 38px;
-                height: 38px;
+            .nav-card .nav-label {
                 font-size: 1.1rem;
             }
-            .shop-item .shop-actions a.btn-map {
-                font-size: 1rem;
+            .nav-grid {
+                gap: 1.5rem;
             }
         }
 
@@ -410,611 +237,155 @@
                 font-size: 1.6rem;
                 border-radius: 14px;
             }
-            .region-btn {
-                width: 72px;
-                height: 80px;
+            .nav-card {
+                min-height: 100px;
+                padding: 1.2rem 0.3rem;
+                border-radius: 32px;
             }
-            .region-btn .flag-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 1.2rem;
+            .nav-card .nav-icon {
+                font-size: 2rem;
             }
-            .region-btn .label {
-                font-size: 0.6rem;
-            }
-            .region-picker {
-                gap: 0.8rem;
-            }
-            .shop-item {
-                padding: 0.5rem 0.7rem;
-                border-radius: 40px;
-                gap: 0.5rem;
-                min-height: 48px;
-            }
-            .shop-item .shop-logo {
-                width: 32px;
-                height: 32px;
-            }
-            .shop-item .shop-name {
-                font-size: 0.75rem;
-            }
-            .shop-item .shop-actions a {
-                width: 28px;
-                height: 28px;
-                font-size: 0.8rem;
-            }
-            .shop-item .shop-actions a.btn-map {
-                font-size: 0.7rem;
-            }
-            .shop-item .shop-actions {
-                gap: 0.25rem;
-            }
-            .thanks-content .thanks-icon {
-                font-size: 3rem;
-            }
-            .thanks-content .thanks-title {
-                font-size: 1.1rem;
-            }
-            .thanks-content .thanks-desc {
+            .nav-card .nav-label {
                 font-size: 0.85rem;
             }
-            .region-btn.thanks-btn .flag-icon {
-                font-size: 1.2rem;
+            .nav-grid {
+                gap: 0.8rem;
+            }
+            .footer-meta {
+                font-size: 0.6rem;
+                padding: 0.4rem 0.8rem;
             }
         }
 
         @media (max-width: 360px) {
-            .region-btn {
-                width: 64px;
-                height: 72px;
+            .nav-card {
+                min-height: 80px;
+                padding: 0.8rem 0.2rem;
             }
-            .region-btn .flag-icon {
-                width: 32px;
-                height: 32px;
-                font-size: 1rem;
+            .nav-card .nav-icon {
+                font-size: 1.6rem;
             }
-            .region-btn .label {
-                font-size: 0.55rem;
-            }
-            .region-picker {
-                gap: 0.5rem;
-            }
-            .shop-item .shop-name {
-                font-size: 0.65rem;
-            }
-            .shop-item .shop-actions a {
-                width: 24px;
-                height: 24px;
+            .nav-card .nav-label {
                 font-size: 0.7rem;
             }
-            .shop-item .shop-actions a.btn-map {
-                font-size: 0.6rem;
+            .nav-grid {
+                gap: 0.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container" role="main">
+<div class="container" role="main">
 
-        <!-- ===== 正方形 LOGO ===== -->
-        <div class="logo-wrapper">
-            <img src="img/webcon/NTR logo.jpg" class="logo-main" alt="品牌Logo" id="logoImage">
-        </div>
-
-        <!-- ===== 地区选择器 ===== -->
-        <div class="region-picker" id="regionPicker">
-            <!-- 新山 SPA 场 -->
-            <button class="region-btn" data-region="johor-spa" id="regionJohorSpa" aria-label="新山SPA场">
-                <img src="img/webcon/jbflag.png" alt="新山州旗" class="flag-icon">
-                <span class="label">新山 SPA</span>
-            </button>
-            <!-- 新山按摩店 -->
-            <button class="region-btn" data-region="johor-massage" id="regionJohorMassage" aria-label="新山按摩店">
-                <img src="img/webcon/jbflag.png" alt="新山州旗" class="flag-icon">
-                <span class="label">新山按摩店</span>
-            </button>
-            <!-- 新山酒店 -->
-            <button class="region-btn" data-region="johor-hotel" id="regionJohorHotel" aria-label="新山酒店">
-                <img src="img/webcon/jbflag.png" alt="新山州旗" class="flag-icon">
-                <span class="label">新山酒店</span>
-            </button>
-            <!-- 吉隆坡 -->
-            <button class="region-btn" data-region="kl" id="regionKl" aria-label="吉隆坡地区">
-                <img src="img/webcon/selangorflag.png" alt="吉隆坡州旗" class="flag-icon">
-                <span class="label">吉隆坡</span>
-            </button>
-            <!-- 感谢按钮 -->
-            <button class="region-btn thanks-btn" data-region="thanks" id="regionThanks" aria-label="感谢页">
-                <span class="flag-icon">🙏</span>
-                <span class="label">感谢</span>
-            </button>
-        </div>
-
-        <!-- ===== 店家展示区 ===== -->
-        <div class="shop-section" id="shopSection">
-            <div class="placeholder" id="placeholderMsg">👆 点击上方选择地区</div>
-            <div id="shopListContainer" class="shop-list"></div>
-        </div>
+    <!-- ===== LOGO (正方形) ===== -->
+    <div class="logo-wrapper">
+        <img src="img/webcon/NTR logo.jpg" class="logo-main" alt="牛头人XP Logo" id="logoImage">
     </div>
 
-    <script>
-        (function() {
-            "use strict";
+    <!-- ===== 四个栏目 ===== -->
+    <div class="nav-grid">
+        <!-- 1. 论坛 (disabled) -->
+        <a class="nav-card disabled" href="#" role="button" aria-disabled="true" data-disabled-msg="📢 论坛功能筹备中，敬请期待！">
+            <span class="nav-icon">📢</span>
+            <span class="nav-label">论坛</span>
+            <span class="nav-badge">筹备中</span>
+        </a>
 
-            // =============================================
-            //  店家数据 - 包含地址 (Google Maps)
-            // =============================================
-            const shopData = {
-                // 新山 SPA 场
-                'johor-spa': [
-                    { 
-                        name: 'Glory Spa', 
-                        logo: 'img/jbspa/glory spa.jpg',
-                        telegram: 'https://t.me/GlorySpaJB',
-                        whatsapp: 'https://wa.me/60178765460',
-                        map: 'https://www.google.com/maps/place/Holiday+Plaza+%E4%BA%9A%E6%B4%B2%E5%85%BB%E7%94%9F%E9%9B%86%E5%9B%A2+(%E6%80%BB%E9%83%A8)+Natural+Asia+Health/@1.4787727,103.6756169,12z/data=!3m1!5s0x31da6d3a4f9da2c1:0x77c253964e0614d!4m10!1m2!2m1!1sholiday+plaza+Glory+Spa+!3m6!1s0x31da6df64b2c0f23:0x46eeb59c50d5490e!8m2!3d1.4884596!4d103.7583042!15sChdob2xpZGF5IHBsYXphIEdsb3J5IFNwYVoZIhdob2xpZGF5IHBsYXphIGdsb3J5IHNwYZIBC21hc3NhZ2Vfc3BhmgEkQ2hkRFNVaE5NRzluUzBWSlEwRm5TVVJvYWtsWVozVkJSUkFC4AEA-gEECBsQRg!16s%2Fg%2F11s3cjpwkc?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-                    { 
-                        name: 'NZ Spa', 
-                        logo: 'img/jbspa/nzspa.jpg',
-                        telegram: 'https://t.me/+BRymeNAa5VRlMGRl',
-                        whatsapp: '',
-                        map: 'https://www.google.com/maps/search/?api=1&query=NZ+Spa+Johor+Bahru'
-                    },
-                    { 
-                        name: 'Paragon Spa', 
-                        logo: 'img/jbspa/paragonspa.jpg',
-                        telegram: 'https://t.me/ParagonSpa8',
-                        whatsapp: 'https://wa.me/60137978055',
-                        map: 'https://www.google.com/maps/place/18,+Jalan+Harimau,+Taman+Century,+80250+Johor+Bahru,+Johor+Darul+Ta\'zim/@1.4812323,103.759335,17z/data=!3m1!4b1!4m6!3m5!1s0x31da6d323c8e3acb:0x841022e25bf3aeff!8m2!3d1.4812269!4d103.7619099!16s%2Fg%2F12hyd4t5w?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-					{ 
-                        name: 'VIP Spa', 
-                        logo: 'img/jbspa/vip spa.jpg',
-                        telegram: 'https://t.me/vipspajb',
-                        whatsapp: '',
-                        map: ''
-                    }
-                ],
-                // 新山按摩店
-                'johor-massage': [
-                    { 
-                        name: 'Breeze Reflexology', 
-                        logo: 'img/jbshop/breeze.jpg',
-                        telegram: 'https://t.me/Breeze8189',
-                        whatsapp: 'https://wa.me/601119298189',
-                        map: 'https://www.google.com/maps/place/17,+Jalan+Jaya+Putra+7%2F3,+Bandar+Jaya+Putra,+81100+Johor+Bahru,+Johor+Darul+Ta\'zim/@1.5780464,103.7650837,17z/data=!3m1!4b1!4m6!3m5!1s0x31da6e5bb6cab54d:0xf6dc8db13f2e3ae9!8m2!3d1.578041!4d103.7676586!16s%2Fg%2F11yzv5myyf?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-                    { 
-                        name: 'Crazy Horse', 
-                        logo: 'img/jbshop/crazyhorse.jpg',
-                        telegram: 'https://t.me/CrazyHorse2125',
-                        whatsapp: 'https:/wa.me/601123538856',
-                        map: 'google.com/maps/place/53,+Jalan+Harimau+Tarum,+Taman+Abad,+80250+Johor+Bahru,+Johor+Darul+Ta\'zim/@1.484328,103.7706629,17z/data=!4m6!3m5!1s0x31da6d2e08f68799:0xd981c5a5b0dc7c29!8m2!3d1.482065!4d103.7645149!16s%2Fg%2F11gxgchyxz?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-                    { 
-                        name: 'DHAKA Reflexology', 
-                        logo: 'img/jbshop/dhaka.jpg',
-                        telegram: 'https://t.me/DhakaCermelang',
-                        whatsapp: 'https://wa.link/af9ed3',
-                        map: 'https://www.google.com/maps/place/91,+Jln+Kenanga+3,+Taman+Desa+Cemerlang,+81800+Ulu+Tiram,+Johor+Darul+Ta\'zim/@1.5538315,103.814335,17z/data=!3m1!4b1!4m6!3m5!1s0x31da6eaa3985313b:0xd30f33f5fe20f4c7!8m2!3d1.5538261!4d103.8169099!16s%2Fg%2F11hwtzjz6l?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-					{ 
-                        name: 'Harmony Massage Center', 
-                        logo: 'img/jbshop/harmony.jpg',
-                        telegram: '',
-                        whatsapp: '',
-                        map: 'https://www.google.com/maps/place/Harmony+Massage+Center/@1.4838884,103.7688366,18z/data=!4m10!1m2!2m1!1sharmony+04-01,+05-01,+Blok+C,+Pusat+Komersial+Pelangi,+Jln+Sri+Pelangi+4,+Taman+Pelangi,+80400+Johor+Bahru,+Johor+Darul+Ta\'zim,+%E9%A9%AC%E6%9D%A5%E8%A5%BF%E4%BA%9A!3m6!1s0x31da6db7a2392b09:0xc5d3c7405d366225!8m2!3d1.4842677!4d103.7732601!15sCowBaGFybW9ueSAwNC0wMSwgMDUtMDEsIEJsb2sgQywgUHVzYXQgS29tZXJzaWFsIFBlbGFuZ2ksIEpsbiBTcmkgUGVsYW5naSA0LCBUYW1hbiBQZWxhbmdpLCA4MDQwMCBKb2hvciBCYWhydSwgSm9ob3IgRGFydWwgVGEnemltLCDpqazmnaXopb_kupqSAQttYXNzYWdlX3NwYeABAA!16s%2Fg%2F11nb_836_v?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-                    { 
-                        name: 'MeetYo', 
-                        logo: 'img/jbshop/meetyo.jpg',
-                        telegram: 'https://t.me/JBJMR22',
-                        whatsapp: 'https://wa.me/60175682202',
-                        map: 'https://www.google.com/maps/place/MEETYO+REFLEXOLOGY/@1.4826683,103.7704179,17z/data=!3m1!4b1!4m6!3m5!1s0x31da6d44a8328b71:0xdeb5cadea592674c!8m2!3d1.4826629!4d103.7729928!16s%2Fg%2F11yxqlc_93?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-                    { 
-                        name: 'OASIS THAI REFLEXLOGY', 
-                        logo: 'img/jbshop/oasis thai.jpg',
-                        telegram: 'https://t.me/jbsentosamassage',
-                        whatsapp: 'https://wa.me/60167113519',
-                        map: 'https://www.google.com/maps/place/131,+Jalan+Perisai,+Taman+Sri+Tebrau,+80050+Johor+Bahru,+Johor+Darul+Ta\'zim/@1.4884838,103.7656099,18z/data=!3m1!4b1!4m6!3m5!1s0x31da6d25a8d0f75d:0x540080d7c89d5f01!8m2!3d1.4884811!4d103.7668974!16s%2Fg%2F11nnt95f2v?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-                    { 
-                        name: 'See You Salon', 
-                        logo: 'img/jbshop/seeyousalon.jpg',
-                        telegram: 'https://t.me/Seeyousalon8189',
-                        whatsapp: 'https://wa.me/601119828189',
-                        map: 'https://www.google.com/maps/place/101,+Jalan+Harimau+Tarum,+Century+Garden,+80250+Johor+Bahru,+Johor+Darul+Ta\'zim/@1.4855358,103.7630144,17z/data=!3m1!4b1!4m6!3m5!1s0x31da6d2f9643075b:0x97cc4988cc4e60b5!8m2!3d1.4855304!4d103.7655893!16s%2Fg%2F11rg66b5l4?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-                    { 
-                        name: 'Yaome Salon', 
-                        logo: 'img/jbshop/yaome.jpg',
-                        telegram: 'https://t.me/yaomesalon8189',
-                        whatsapp: 'https://wa.me/60102488951',
-                        map: 'https://www.google.com/maps/place/51,+Jalan+Perisai,+Taman+Sri+Tebrau,+80050+Johor+Bahru,+Johor+Darul+Ta\'zim/@1.48576,103.763564,17z/data=!3m1!4b1!4m6!3m5!1s0x31da6d2f9be61ae9:0xe1d164aeb9398adf!8m2!3d1.4857546!4d103.7661389!16s%2Fg%2F11xt03t_31?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-                    { 
-                        name: 'Yes I Do', 
-                        logo: 'img/jbshop/yesido.jpg',
-                        telegram: 'https://t.me/yesidosalon0101',
-                        whatsapp: 'https://wa.me/601115851819',
-                        map: 'https://www.google.com/maps/place/YESIDO+SALON/@1.484328,103.7706629,17z/data=!3m1!4b1!4m6!3m5!1s0x31da6dd9164d385b:0xd695dc8ae27299f1!8m2!3d1.4843226!4d103.7732378!16s%2Fg%2F11xycgshfb?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-                    { 
-                        name: '八号', 
-                        logo: 'img/jbshop/bahao.jpg',
-                        telegram: 'https://t.me/spa5183',
-                        whatsapp: '',
-                        map: 'https://www.google.com/maps/place/CHAGEE+Pelangi+Avenue/@1.4839158,103.7714756,18z/data=!3m1!4b1!4m6!3m5!1s0x31da6dd3ba0823c9:0x22fd6c159b23f17a!8m2!3d1.4839131!4d103.7727631!16s%2Fg%2F11xkxsg72h?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-                    { 
-                        name: '金美人', 
-                        logo: 'img/jbshop/jinmeiren.jpg',
-                        telegram: 'https://t.me/JBJMR1',
-                        whatsapp: 'https://wa.me/60177201181',
-                        map: 'https://www.google.com/maps/place/63,+Jalan+Harimau+Tarum,+Taman+Century,+80250+Johor+Bahru,+Johor+Darul+Ta\'zim/@1.4828863,103.762164,17z/data=!3m1!4b1!4m6!3m5!1s0x31da6d2e169bb20d:0x1362fd2d96f63200!8m2!3d1.4828809!4d103.7647389!16s%2Fg%2F11c2d3qbw2?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-					{ 
-                        name: '有钱任性', 
-                        logo: 'img/jbshop/youqianrenxing.jpg',
-                        telegram: 'https://t.me/RnBJB',
-                        whatsapp: 'https://wa.me/60167613519',
-                        map: 'https://www.google.com/maps/place/NO+131A,+133,+Jalan+Perisai,+Taman+Sri+Tebrau,+80050+Johor+Bahru,+Johor+Darul+Ta\'zim/@1.4885016,103.7644565,17z/data=!3m1!4b1!4m5!3m4!1s0x31da6d25a930d273:0xd2cafa789850f971!8m2!3d1.4884962!4d103.7670314?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    }
-                ],
-                // 新山酒店
-                'johor-hotel': [
-                    { 
-                        name: 'Maya 家', 
-                        logo: 'img/jbhotel/maya.jpg',
-                        telegram: 'https://t.me/+bZ2OhjlXUGYwODhl',
-                        whatsapp: 'https://wa.me/601161018721',
-                        map: 'https://www.google.com/maps/search/rnf/@1.4599332,103.7678112,17z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-                    { 
-                        name: 'Mina家', 
-                        logo: 'img/jbhotel/mina.jpg',
-                        telegram: '',
-                        whatsapp: 'https://wa.me/60189096799',
-                        map: ''
-                    },
-                    { 
-                        name: 'Myammar RnF', 
-                        logo: 'img/jbhotel/myammar.jpg',
-                        telegram: 'https://t.me/johoroutcallservice',
-                        whatsapp: '',
-                        map: 'https://www.google.com/maps/search/rnf/@1.4599332,103.7678112,17z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-                    { 
-                        name: 'Roti Boy', 
-                        logo: 'img/jbhotel/roti.jpg',
-                        telegram: 'https://t.me/RotiboyExpressJb',
-                        whatsapp: '',
-                        map: ''
-                    },
-                    { 
-                        name: 'QuuBee Escort', 
-                        logo: 'img/jbhotel/quubee.jpg',
-                        telegram: 'https://t.me/JBQBESCORT',
-                        whatsapp: '',
-                        map: ''
-                    },
-                    { 
-                        name: 'Ruby Club', 
-                        logo: 'img/jbhotel/taohua.jpg',
-                        telegram: 'https://t.me/Rubyclub_517',
-                        whatsapp: 'https://wa.me/60108175577',
-                        map: ''
-                    },
-                    { 
-                        name: 'Thai Princess', 
-                        logo: 'img/jbhotel/thaiprincess.jpg',
-                        telegram: 'https://t.me/RFThai_Princess_JB',
-                        whatsapp: 'https://wa.me/66632219083',
-                        map: ''
-                    },
-                    { 
-                        name: 'Tony 家', 
-                        logo: 'img/jbhotel/tony.jpg',
-                        telegram: 'https://t.me/luxgirl6969',
-                        whatsapp: '',
-                        map: ''
-                    },
-                    { 
-                        name: 'Vivi Club', 
-                        logo: 'img/jbhotel/vivi.jpg',
-                        telegram: 'https://t.me/viviclub2628',
-                        whatsapp: 'http://wa.me/+60109742628',
-                        map: ''
-                    },
-                    { 
-                        name: '敏敏家', 
-                        logo: 'img/jbhotel/minmin.jpg',
-                        telegram: 'https://t.me/zuiyiren123',
-                        whatsapp: 'https://wa.me/60174811396',
-                        map: 'https://www.google.com/maps/search/rnf/@1.4599332,103.7678112,17z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-                    { 
-                        name: '名媛', 
-                        logo: 'img/jbhotel/minyuan.jpg',
-                        telegram: 'https://t.me/mingyuanhuisuo16881',
-                        whatsapp: '',
-                        map: 'https://www.google.com/maps/place/Space+Residency+Premium+Suite+Near+KSL+Mall+by+Nest+Home/@1.4858554,103.7578163,17z/data=!4m10!3m9!1s0x31da6d308eceafb9:0x1cdba6ee7b282817!5m2!4m1!1i2!8m2!3d1.48585!4d103.7603912!16s%2Fg%2F11nthr6_m9!17BQ0FF?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-                    { 
-                        name: '桃花', 
-                        logo: 'img/jbhotel/taohua.jpg',
-                        telegram: 'https://t.me/taohuaGG',
-                        whatsapp: 'https://wa.link/ourk1a',
-                        map: 'https://www.google.com/maps/search/KSL+S%26R+/@1.4839935,103.7676132,16z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D'
-                    },
-                    { 
-                        name: '7-11 陪哥', 
-                        logo: 'img/jbhotel/711.jpg',
-                        telegram: 'https://t.me/jbescort711',
-                        whatsapp: 'https://wa.me/601169325525',
-                        map: ''
-                    }
-                ],
-                // 吉隆坡
-                kl: [
-                    { 
-                        name: 'The Cave', 
-                        logo: 'img/kl/thecave.jpg',
-                        telegram: 'https://t.me/serdangthecave',
-                        whatsapp: '',
-                        map: 'https://www.google.com/maps/search/?api=1&query=The+Cave+Serdang'
-                    },
-                    { 
-                        name: '沐雅居美女频道', 
-                        logo: 'img/kl/risingsun.jpg',
-                        telegram: 'https://t.me/muyaju0109522339',
-                        whatsapp: '',
-                        map: ''
-                    },
-                    { 
-                        name: '红日', 
-                        logo: 'img/kl/risingsun.jpg',
-                        telegram: 'https://t.me/risingsunkuchai',
-                        whatsapp: '',
-                        map: 'https://www.google.com/maps/search/?api=1&query=红日+Kuchai+Lama'
-                    },
-                    { 
-                        name: 'W Channel', 
-                        logo: 'img/kl/wchannel.jpg',
-                        telegram: 'https://t.me/wchannel_k',
-                        whatsapp: '',
-                        map: 'https://www.google.com/maps/search/?api=1&query=W+Channel+Kuala+Lumpur'
-                    },
-                    { 
-                        name: '甲洞九尾狐休闲中心', 
-                        logo: 'img/kl/jiuweihu.jpg',
-                        telegram: 'https://t.me/jiuweihu168',
-                        whatsapp: '',
-                        map: 'https://www.google.com/maps/search/?api=1&query=九尾狐+Kepong'
-                    },
-                    { 
-                        name: '樱花休闲中心', 
-                        logo: 'img/kl/sakura.jpg',
-                        telegram: 'https://t.me/sakura6348',
-                        whatsapp: '',
-                        map: 'https://www.google.com/maps/search/?api=1&query=樱花+Kuala+Lumpur'
-                    },
-					{ 
-                        name: 'Red Escort', 
-                        logo: 'img/kl/redescort.jpg',
-                        telegram: 'https://t.me/redescort66',
-                        whatsapp: 'https://wa.me/601165751028',
-                        map: ''
-                    },
+        <!-- 2. 店家 (可用) -->
+        <a class="nav-card shop-card" href="ntr-shop.html" role="button">
+            <span class="nav-icon">🏪</span>
+            <span class="nav-label">店家</span>
+            <span class="nav-badge">· 探索 ·</span>
+        </a>
 
-                ]
+        <!-- 3. FR (disabled) -->
+        <a class="nav-card disabled fr-card" href="#" role="button" aria-disabled="true" data-disabled-msg="📝 FR 板块筹备中，即将上线！">
+            <span class="nav-icon">📝</span>
+            <span class="nav-label">FR</span>
+            <span class="nav-badge">筹备中</span>
+        </a>
+
+        <!-- 4. 翻车 (disabled) -->
+        <a class="nav-card disabled flip-card" href="#" role="button" aria-disabled="true" data-disabled-msg="💥 翻车专区筹备中，帮你避雷！">
+            <span class="nav-icon">💥</span>
+            <span class="nav-label">翻车</span>
+            <span class="nav-badge">筹备中</span>
+        </a>
+    </div>
+
+    <!-- ===== 小尾巴 ===== -->
+    <div class="footer-meta">
+        ⚡ 牛头人 XP · 首页 · v0.3
+    </div>
+
+    <!-- ===== Toast 提示浮层 ===== -->
+    <div class="toast-tip" id="toastTip" role="alert">
+        <span class="toast-emoji">🚧</span>
+        <span id="toastMessage">功能筹备中</span>
+    </div>
+</div>
+
+<script>
+    (function() {
+        "use strict";
+
+        // ===== LOGO 图片加载失败 → 备用 =====
+        const logoImg = document.getElementById('logoImage');
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.style.display = 'none';
+                const parent = this.parentElement;
+                const fallback = document.createElement('div');
+                fallback.className = 'logo-fallback';
+                fallback.textContent = '◈';
+                parent.appendChild(fallback);
             };
+        }
 
-            // 感谢页面数据
-            const thanksData = {
-                title: '🙏 感谢提供资料的用户',
-                desc: '感谢以下热心用户提供店家资讯，让更多人发现好地方！',
-                tags: ['@gouergege 狗儿','@MasterEthan MasterEthan 一灯大师', '@thisacountisunavailable 杰哥不要', '@super_9696 小V（外交部）']
-            };
+        // ===== Toast 提示系统 =====
+        const toastEl = document.getElementById('toastTip');
+        const toastMsg = document.getElementById('toastMessage');
+        let toastTimer = null;
 
-            // =============================================
-            //  DOM 引用
-            // =============================================
-            const regionBtns = document.querySelectorAll('.region-btn');
-            const placeholderMsg = document.getElementById('placeholderMsg');
-            const shopListContainer = document.getElementById('shopListContainer');
-            let activeRegion = null;
-
-            // =============================================
-            //  渲染感谢页面
-            // =============================================
-            function renderThanks() {
-                shopListContainer.innerHTML = '';
-                placeholderMsg.style.display = 'none';
-
-                const container = document.createElement('div');
-                container.className = 'thanks-content';
-
-                const icon = document.createElement('div');
-                icon.className = 'thanks-icon';
-                icon.textContent = '🙏';
-
-                const title = document.createElement('div');
-                title.className = 'thanks-title';
-                title.textContent = thanksData.title;
-
-                const desc = document.createElement('div');
-                desc.className = 'thanks-desc';
-                desc.textContent = thanksData.desc;
-
-                const tagContainer = document.createElement('div');
-                tagContainer.className = 'thanks-list';
-
-                thanksData.tags.forEach(tag => {
-                    const span = document.createElement('span');
-                    span.className = 'thanks-tag';
-                    span.textContent = '✈️ ' + tag;
-                    tagContainer.appendChild(span);
-                });
-
-                container.appendChild(icon);
-                container.appendChild(title);
-                container.appendChild(desc);
-                container.appendChild(tagContainer);
-                shopListContainer.appendChild(container);
+        function showToast(message) {
+            if (!toastEl || !toastMsg) return;
+            // 清除之前的定时器
+            if (toastTimer) {
+                clearTimeout(toastTimer);
+                toastTimer = null;
             }
+            // 设置消息 (如果消息本身带emoji，则保留)
+            toastMsg.textContent = message || '功能筹备中';
+            // 显示
+            toastEl.classList.add('show');
+            // 自动隐藏
+            toastTimer = setTimeout(() => {
+                toastEl.classList.remove('show');
+                toastTimer = null;
+            }, 2000);
+        }
 
-            // =============================================
-            //  渲染店家列表
-            // =============================================
-            function renderShops(regionKey) {
-                shopListContainer.innerHTML = '';
-                placeholderMsg.style.display = 'none';
-
-                const shops = shopData[regionKey];
-
-                if (!shops || shops.length === 0) {
-                    const empty = document.createElement('div');
-                    empty.className = 'empty-shops';
-                    empty.textContent = '🏷️ 该地区暂无店家';
-                    shopListContainer.appendChild(empty);
-                    return;
+        // ===== 所有 disabled 卡片点击 => 弹出提示 =====
+        const disabledCards = document.querySelectorAll('.nav-card.disabled');
+        disabledCards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault(); // 阻止链接跳转
+                // 优先使用 data-disabled-msg，否则使用默认
+                let msg = this.dataset.disabledMsg;
+                if (!msg) {
+                    const label = this.querySelector('.nav-label');
+                    const name = label ? label.textContent : '该功能';
+                    msg = `🚧 ${name} 筹备中，敬请期待！`;
                 }
-
-                shops.forEach(shop => {
-                    const item = document.createElement('div');
-                    item.className = 'shop-item';
-
-                    const logo = document.createElement('img');
-                    logo.className = 'shop-logo';
-                    logo.src = shop.logo || 'default-logo.png';
-                    logo.alt = shop.name + ' logo';
-                    logo.onerror = function() {
-                        this.style.display = 'none';
-                        const fallback = document.createElement('span');
-                        fallback.className = 'shop-icon';
-                        fallback.textContent = '🏪';
-                        this.parentElement.insertBefore(fallback, this);
-                    };
-
-                    const name = document.createElement('span');
-                    name.className = 'shop-name';
-                    name.textContent = shop.name;
-
-                    const actions = document.createElement('div');
-                    actions.className = 'shop-actions';
-
-                    // Telegram 按钮
-                    if (shop.telegram) {
-                        const tgBtn = document.createElement('a');
-                        tgBtn.className = 'btn-telegram';
-                        tgBtn.href = shop.telegram;
-                        tgBtn.target = '_blank';
-                        tgBtn.rel = 'noopener noreferrer';
-                        tgBtn.innerHTML = '✈️';
-                        tgBtn.setAttribute('aria-label', '联系 Telegram');
-                        actions.appendChild(tgBtn);
-                    }
-
-                    // WhatsApp 按钮
-                    if (shop.whatsapp) {
-                        const waBtn = document.createElement('a');
-                        waBtn.className = 'btn-whatsapp';
-                        waBtn.href = shop.whatsapp;
-                        waBtn.target = '_blank';
-                        waBtn.rel = 'noopener noreferrer';
-                        waBtn.innerHTML = '💬';
-                        waBtn.setAttribute('aria-label', '联系 WhatsApp');
-                        actions.appendChild(waBtn);
-                    }
-
-                    // Google Maps 地址按钮
-                    if (shop.map) {
-                        const mapBtn = document.createElement('a');
-                        mapBtn.className = 'btn-map';
-                        mapBtn.href = shop.map;
-                        mapBtn.target = '_blank';
-                        mapBtn.rel = 'noopener noreferrer';
-                        mapBtn.innerHTML = '📍';
-                        mapBtn.setAttribute('aria-label', '查看地址');
-                        actions.appendChild(mapBtn);
-                    }
-
-                    item.appendChild(logo);
-                    item.appendChild(name);
-                    item.appendChild(actions);
-                    shopListContainer.appendChild(item);
-                });
-            }
-
-            // =============================================
-            //  清除所有激活状态
-            // =============================================
-            function clearActive() {
-                regionBtns.forEach(btn => btn.classList.remove('active'));
-            }
-
-            // =============================================
-            //  设置激活地区
-            // =============================================
-            function setActiveRegion(regionKey, buttonEl) {
-                if (activeRegion === regionKey) {
-                    clearActive();
-                    activeRegion = null;
-                    shopListContainer.innerHTML = '';
-                    placeholderMsg.style.display = 'block';
-                    return;
-                }
-
-                clearActive();
-                buttonEl.classList.add('active');
-                activeRegion = regionKey;
-
-                if (regionKey === 'thanks') {
-                    renderThanks();
-                } else {
-                    renderShops(regionKey);
-                }
-            }
-
-            // =============================================
-            //  事件绑定
-            // =============================================
-            regionBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const region = this.dataset.region;
-                    if (region) setActiveRegion(region, this);
-                });
+                showToast(msg);
             });
+        });
 
-            // =============================================
-            //  默认激活：新山 SPA
-            // =============================================
-            const defaultBtn = document.getElementById('regionJohorSpa');
-            if (defaultBtn) {
-                setActiveRegion('johor-spa', defaultBtn);
-            } else {
-                placeholderMsg.style.display = 'block';
-            }
+        // ===== 店家卡片正常跳转，不做拦截 =====
 
-            // =============================================
-            //  LOGO 图片加载失败 → 显示备用文字
-            // =============================================
-            const logoImg = document.getElementById('logoImage');
-            if (logoImg) {
-                logoImg.onerror = function() {
-                    this.style.display = 'none';
-                    const parent = this.parentElement;
-                    const fallback = document.createElement('div');
-                    fallback.className = 'logo-fallback';
-                    fallback.textContent = '◈';
-                    parent.appendChild(fallback);
-                };
-            }
-
-        })();
-    </script>
+        // ===== 额外：如果点击空白区域或误触，不影响 =====
+        console.log('🏠 牛头人 XP 首页 · disabled 点击提示已启用');
+    })();
+</script>
 </body>
 </html>
